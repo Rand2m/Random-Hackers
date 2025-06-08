@@ -1,0 +1,297 @@
+/* General Body & Fonts */
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars as Vanta.js will manage the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center; /* Center align text for all children */
+}
+
+/* Vanta.js Canvas Container */
+#vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Preloader - Updated for a more engaging feel */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#preloader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dots-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dots-loader div {
+    width: 16px;
+    height: 16px;
+    margin: 0 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dots-loader div:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dots-loader div:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1.0);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Main Container & 3D Perspective */
+.container {
+    perspective: 1500px;
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    animation: fadeInContainer 1.2s 0.8s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes fadeInContainer {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Centered content */
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+/* Main Title Styling - Enhanced Glow and Flicker */
+.main-title {
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0 0 20px 0; /* Adjusted margin */
+    transform: translateZ(60px);
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.7),
+        0 0 15px rgba(255, 255, 255, 0.5),
+        0 0 25px rgba(255, 255, 255, 0.3);
+    animation: text-flicker 5s linear infinite;
+}
+
+@keyframes text-flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow:
+            0 0 8px rgba(255, 255, 255, 0.7),
+            0 0 15px rgba(255, 255, 255, 0.5),
+            0 0 25px rgba(255, 255, 255, 0.3);
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.9;
+    }
+}
+
+
+/* Subtitle */
+.subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    color: #ccc;
+    margin-bottom: 60px;
+    transform: translateZ(40px);
+    opacity: 0.9;
+    letter-spacing: 1px;
+}
+
+/* Links Container */
+.links-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.link-item {
+    background: linear-gradient(145deg, rgba(35, 35, 35, 0.5), rgba(20, 20, 20, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    padding: 25px;
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: translateZ(20px);
+    will-change: transform, box-shadow, border-color;
+}
+
+.link-item:hover {
+    transform: translateY(-10px) translateZ(40px) scale(1.05);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+}
+
+.avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.3);
+    font-size: 30px;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+}
+
+.link-item:hover .avatar {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.avatar.clicked {
+    animation: avatar-click-animation 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes avatar-click-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.85) rotate(-10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.link-content {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.link-title {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.link-description {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: #aaa;
+}
+
+.arrow {
+    font-size: 28px;
+    color: #888;
+    margin-left: auto;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s ease;
+}
+
+.link-item:hover .arrow {
+    transform: translateX(10px) scale(1.2);
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .links-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        width: 100%;
+    }
+    .link-item {
+        width: 80%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        transform-style: flat; /* Disable 3D transforms on mobile for performance */
+    }
+    .main-title {
+        margin: 20px 0 15px 0;
+        letter-spacing: 0.1em;
+    }
+    .subtitle {
+        margin-bottom: 40px;
+    }
+    .link-item {
+        padding: 20px;
+        width: 90%;
+    }
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
+    .link-item:hover {
+        transform: translateY(-5px) scale(1.02);
+    }
+} 
